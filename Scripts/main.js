@@ -1,8 +1,8 @@
 var courses;
 
-getAPI();
+getAllCourses();
 
-function getAPI() {
+function getAllCourses() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -11,6 +11,7 @@ function getAPI() {
         }
     };
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses", true);
+    xhttp.setRequestHeader("ContentType", "application/json");
     xhttp.send();
 }
 
