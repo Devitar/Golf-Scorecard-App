@@ -1,0 +1,27 @@
+{
+  "name": "golf-scorecard-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "scss": "^0.2.4"
+  },
+  "devDependencies": {
+    "jquery": "^3.3.1",
+    "jqueryui": "^1.11.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devitar/Golf-Scorecard-App.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devitar/Golf-Scorecard-App/issues"
+  },
+  "homepage": "https://github.com/Devitar/Golf-Scorecard-App#readme",
+  "keywords": []
+}

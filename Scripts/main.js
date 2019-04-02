@@ -19,6 +19,8 @@
 //     console.log("Started code. ", courses);
 // }
 
+$('.navbar').effect('shake', {}, 500)
+
 let allcats;
 let selcourse;
 let seltype;
@@ -79,7 +81,7 @@ function returnCourse(courseid, mybtn) {
     xhttp.send();
 }
 
-function showAllClasses(typeindex) {
+function showAll(typeindex) {
     seltype = typeindex;
     $(".classRow").remove();
     selcourse.classes.forEach((v, i) => {
