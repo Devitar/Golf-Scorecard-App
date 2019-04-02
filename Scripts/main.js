@@ -19,7 +19,7 @@
 //     console.log("Started code. ", courses);
 // }
 
-$('.navbar').effect('shake', {}, 500)
+//$('.navbar').effect('shake', {}, 500)
 
 let allcats;
 let selcourse;
