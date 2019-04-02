@@ -1,3 +1,10 @@
+//Color scheme https://coolors.co/36393b-c4e0f9-01baef-40f99b-00487c
+$paletteBlack: #36393B;
+$paletteLight: #C4E0F9;
+$paletteMain: #01BAEF;
+$paletteSecondary: #40F99B;
+$paletteDarkMain: #00487C;
+
 body,
 html {
     margin: 0;
@@ -24,9 +31,20 @@ html {
 .popup{
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: 300px;
-    height: 200px;
+    width: 40vw;
+    height: 30vh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.modalHeader{
+    height: 25%;
+}
+#loadingGif{
+    max-height: 75%;
+    height: 75%;
 }
 //
 

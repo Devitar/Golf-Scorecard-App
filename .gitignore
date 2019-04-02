@@ -56,3 +56,5 @@ node_modules/scss/src/cssSelector.ometa
 node_modules/scss/src/index.js
 node_modules/scss/src/prettyPrint.js
 node_modules/scss/src/scss.ometa
+Assets/Images/.DS_Store
+.DS_Store

@@ -23,30 +23,35 @@ let allcats;
 let selcourse;
 let seltype;
 
-getCourses();
-
 //Modal
 let mainModal = $(".modal");
 let closeModal = $("#closeModal");
-$(function (){
-    mainModal.fadeIn(1000);
+let loadingGif = $("#loadingGif");
+$("#loadingGif").ready(function(){
+    showModal();
+    loadingGif.css('width', loadingGif.height());
+    getCourses();
 });
 
-closeModal.on("click", function (){
+function showModal(){
+    mainModal.fadeIn(300);
+}
+function hideModal(){
     mainModal.fadeOut(300);
-})
+}
 //
 
 function getCourses() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            hideModal();
             allcats = JSON.parse(this.responseText);
-            allcats.categories.forEach((v, i) => {
+            allcats.courses.forEach((v, i) => {
                 let newItem = `<div id="${v.catid}" class="courseContainer">` +
-                    `<img src="${v.courseimage}" class="courseImg"/>` +
+                    `<img src="${v.image}" class="courseImg"/>` +
                     `<div>` + v.name + `</div>` +
-                    `<button onclick="returnCourse(${v.catid}, this)" class="courseButton">More Info</button>` +
+                    `<button onclick="returnCourse(${v.id}, this)" class="courseButton">More Info</button>` +
                     `</div>`;
                 $(".centerbox").append(newItem);
             });
@@ -57,10 +62,12 @@ function getCourses() {
 }
 
 function returnCourse(courseid, mybtn) {
+    showModal();
     let thecard = $(mybtn).parent();
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            hideModal();
             selcourse = JSON.parse(this.responseText);
             let levelsArray = selcourse.classes[0].levels;
             levelsArray.forEach((v, i) => {
