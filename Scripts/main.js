@@ -71,11 +71,22 @@ function returnCourse(courseid, mybtn) {
         if (this.readyState == 4 && this.status == 200) {
             hideModal();
             selcourse = JSON.parse(this.responseText);
-            console.log(courseid, selcourse, selcourse.data.id);
+            let teeBoxArray = [];
+            let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu">`
+
+            console.log(selcourse);
             let teesArray = selcourse.data.holes[0].teeBoxes;
             teesArray.forEach((v, i) => {
-                $(thecard).append(`<a onclick="showAllClasses(${i})">${v.teeType}</a>`);
-            })
+                if (v.teeType != "auto change location"){ //Excludes the auto distance tee (unsure what it is)
+                    //$(thecard).append(`<a href="#" onclick="showAllClasses(${i})">${v.teeType}</a>`);
+                    teeBoxArray.push(`<option onclick="loadCourse(${v.teeType})">${v.teeType}</option>`)
+                };
+            });
+            teeBoxArray.forEach((v,i) => {
+                dropDownMenu += v;
+            });
+            dropDownMenu += "</select>";
+            $(thecard).append(dropDownMenu);
         }
     }
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);
@@ -92,4 +103,8 @@ function showAll(typeindex) {
             <div>${v.levels[seltype].schedule}</div>
         </div>`);
     });
+};
+
+function loadCourse(obj){
+    console.log(obj);
 };
