@@ -71,9 +71,10 @@ function returnCourse(courseid, mybtn) {
         if (this.readyState == 4 && this.status == 200) {
             hideModal();
             selcourse = JSON.parse(this.responseText);
-            let levelsArray = selcourse.classes[0].levels;
-            levelsArray.forEach((v, i) => {
-                $(thecard).append(`<a onclick="showAllClasses(${i})">${levelsArray[i].type}</a>`);
+            console.log(courseid, selcourse, selcourse.data.id);
+            let teesArray = selcourse.data.holes[0].teeBoxes;
+            teesArray.forEach((v, i) => {
+                $(thecard).append(`<a onclick="showAllClasses(${i})">${v.teeType}</a>`);
             })
         }
     }
