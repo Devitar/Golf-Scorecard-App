@@ -49,6 +49,7 @@ function getCourses() {
         if (this.readyState == 4 && this.status == 200) {
             hideModal();
             allcats = JSON.parse(this.responseText);
+            console.log(allcats);
             allcats.courses.forEach((v, i) => {
                 let newItem = `<div id="${v.catid}" class="courseContainer">` +
                     `<img src="${v.image}" class="courseImg"/>` +
@@ -72,14 +73,15 @@ function returnCourse(courseid, mybtn) {
             hideModal();
             selcourse = JSON.parse(this.responseText);
             let teeBoxArray = [];
-            let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu">`
+            let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value)">`
 
             console.log(selcourse);
             let teesArray = selcourse.data.holes[0].teeBoxes;
             teesArray.forEach((v, i) => {
                 if (v.teeType != "auto change location"){ //Excludes the auto distance tee (unsure what it is)
-                    //$(thecard).append(`<a href="#" onclick="showAllClasses(${i})">${v.teeType}</a>`);
-                    teeBoxArray.push(`<option onclick="loadCourse(${v.teeType})">${v.teeType}</option>`)
+                    let teeType = v.teeType;
+                    let newString = teeType.charAt(0).toUpperCase() + teeType.slice(1);
+                    teeBoxArray.push(`<option value="${teeType}">${newString}</option>`)
                 };
             });
             teeBoxArray.forEach((v,i) => {
@@ -104,6 +106,10 @@ function showAll(typeindex) {
         </div>`);
     });
 };
+
+function setTee(value){
+    console.log(value);
+}
 
 function loadCourse(obj){
     console.log(obj);
