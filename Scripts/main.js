@@ -51,10 +51,12 @@ function getCourses() {
             allcats = JSON.parse(this.responseText);
             console.log(allcats);
             allcats.courses.forEach((v, i) => {
-                let newItem = `<div id="${v.catid}" class="courseContainer">` +
-                    `<img src="${v.image}" class="courseImg"/>` +
-                    `<div>` + v.name + `</div>` +
+                let newItem = `<div id="${v.catid}" class="courseContainer card">` +
+                    `<img src="${v.image}" class="courseImg card-img-top" alt="Course Image" />` +
+                    `<div class="card-body">` + 
+                    `<p class="card-text">` + v.name + `</p>` +
                     `<button onclick="returnCourse(${v.id}, this)" class="courseButton">More Info</button>` +
+                    `</div>` +
                     `</div>`;
                 $(".centerbox").append(newItem);
             });
