@@ -51,7 +51,7 @@ function getCourses() {
             allcats = JSON.parse(this.responseText);
             console.log(allcats);
             allcats.courses.forEach((v, i) => {
-                let newItem = `<div id="${v.catid}" class="courseContainer card">` +
+                let newItem = `<div id="${v.id}" class="courseContainer card">` +
                     `<img src="${v.image}" class="courseImg card-img-top" alt="Course Image" />` +
                     `<div class="card-body">` + 
                     `<p class="card-text">` + v.name + `</p>` +
@@ -90,7 +90,8 @@ function returnCourse(courseid, mybtn) {
                 dropDownMenu += v;
             });
             dropDownMenu += "</select>";
-            $(thecard).append(dropDownMenu);
+            $(mybtn).hide();
+            $(`#${courseid}`).append(dropDownMenu);
         }
     }
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);

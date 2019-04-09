@@ -4,6 +4,7 @@ html {
   padding: 0;
   width: 100vw;
   font-family: 'Poppins', sans-serif;
+  background-color: #FCFFFC;
 }
 
 .modal {
@@ -29,7 +30,7 @@ html {
 }
 
 .popup {
-  background-color: #FFFFFF;
+  background-color: #FCFFFC;
   border-radius: 10px;
   width: 40vw;
   height: 30vh;
@@ -56,6 +57,54 @@ html {
 #loadingGif {
   max-height: 75%;
   height: 75%;
+}
+
+.modalPlayers {
+  display: none;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.popupPlayer {
+  width: 60vw;
+  height: 50vh;
+  background-color: #FCFFFC;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.modalHeaderPlayer {
+  text-align: center;
+  border-bottom: 2px solid #0F0A0A;
+}
+
+.modalHeaderPlayer h3 {
+  color: #0F0A0A;
+}
+
+.navbar {
+  background-color: #36393B !important;
+}
+
+.navbar-brand {
+  color: #FCFFFC !important;
+}
+
+.nav-link {
+  color: rgba(252, 255, 252, 0.75) !important;
+}
+
+.nav-item.active {
+  color: #FCFFFC !important;
 }
 
 .centerbox {
