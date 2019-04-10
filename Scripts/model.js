@@ -1,6 +1,8 @@
 class Course {
-    constructor(id, name) {
-
+    constructor(id, name, index) {
+        this.Name = name;
+        this.ID = id;
+        this.Index = index;
     }
 }
 
@@ -40,8 +42,9 @@ class AllCourses {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 hideModal();
-                selcourse = JSON.parse(this.responseText);
-                mainObj.Collection.push(new Course(selcourse.data.id, selcourse.data.name));
+                let selcourse = JSON.parse(this.responseText);
+                let newCourse = new Course(selcourse.data.id, selcourse.data.name, mainObj.Collection.length);
+                mainObj.Collection.push(newCourse);
                 let teeBoxArray = [];
                 let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value)">`
 
@@ -60,6 +63,7 @@ class AllCourses {
                 dropDownMenu += "</select>";
                 $(mybtn).hide();
                 $(`#${courseid}`).append(dropDownMenu);
+                return newCourse;
             }
         }
         xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);
@@ -68,8 +72,8 @@ class AllCourses {
 }
 
 class Player {
-    constructor() {
-
+    constructor(name) {
+        this.Name = name;
     }
 }
 
@@ -77,8 +81,17 @@ class PlayerCollection {
     constructor() {
         this.Collection = [];
     }
-    addPlayer() {
-        this.Collection.push(new Player());
+    addPlayer(name) {
+        this.Collection.forEach((v,i) => {
+            if (v.Name != name){
+                let newPlayer = new Player(name);
+                this.Collection.push(newPlayer);
+                return newPlayer;
+            }else{
+                return false;
+            }
+        });
+        
     }
 }
 

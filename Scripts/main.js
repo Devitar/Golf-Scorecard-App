@@ -1,7 +1,7 @@
 //$('.navbar').effect('shake', {}, 500)
 
-let selcourse;
-let seltype;
+let currentCourse;
+let teeType;
 
 //Modal, initial load
 let mainModal = $(".modal");
