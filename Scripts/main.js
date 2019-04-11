@@ -7,17 +7,18 @@ let teeType;
 let mainModal = $(".modal");
 let closeModal = $("#closeModal");
 let loadingGif = $("#loadingGif");
-$("#loadingGif").ready(function(){
+$("#loadingGif").ready(function () {
     showModal();
     loadingGif.css('width', loadingGif.height());
     // getCourses();
     allCourses.loadInitialData();
 });
 
-function showModal(){
+function showModal() {
     mainModal.fadeIn(300);
 }
-function hideModal(){
+
+function hideModal() {
     mainModal.fadeOut(300);
 }
 //
@@ -26,10 +27,10 @@ function returnCourse(courseid, mybtn) {
     allCourses.loadCourse(courseid, mybtn);
 }
 
-function setTee(value){
+function setTee(value) {
     console.log(value);
 }
 
-function loadCourse(obj){
+function loadCourse(obj) {
     console.log(obj);
 };

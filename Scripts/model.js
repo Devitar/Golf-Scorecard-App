@@ -20,7 +20,10 @@ class AllCourses {
                 let coursesParsed = JSON.parse(this.responseText);
                 console.log(coursesParsed);
                 coursesParsed.courses.forEach((v, i) => {
-                    mainObj.mainCourses.push({"Name": v.name, "id": v.id})
+                    mainObj.mainCourses.push({
+                        "Name": v.name,
+                        "id": v.id
+                    })
                     let newItem = `<div id="${v.id}" class="courseContainer card">` +
                         `<img src="${v.image}" class="courseImg card-img-top" alt="Course Image" />` +
                         `<div class="card-body">` +
@@ -28,7 +31,7 @@ class AllCourses {
                         `<button onclick="returnCourse(${v.id}, this)" class="courseButton">More Info</button>` +
                         `</div>` +
                         `</div>`;
-                    $(".centerbox").append(newItem);
+                    $(".courseDiv").append(newItem);
                 });
             }
         }
@@ -39,30 +42,31 @@ class AllCourses {
         showModal();
         let xhttp = new XMLHttpRequest();
         let mainObj = this;
-        xhttp.onreadystatechange = function() {
+        xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 hideModal();
                 let selcourse = JSON.parse(this.responseText);
                 let newCourse = new Course(selcourse.data.id, selcourse.data.name, mainObj.Collection.length);
                 mainObj.Collection.push(newCourse);
-                let teeBoxArray = [];
-                let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value)">`
+                // let teeBoxArray = [];
+                // let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value)">`
 
-                console.log(selcourse);
-                let teesArray = selcourse.data.holes[0].teeBoxes;
-                teesArray.forEach((v, i) => {
-                    if (v.teeType != "auto change location") { //Excludes the auto distance tee (unsure what it is)
-                        let teeType = v.teeType;
-                        let newString = teeType.charAt(0).toUpperCase() + teeType.slice(1);
-                        teeBoxArray.push(`<option value="${teeType}">${newString}</option>`)
-                    };
-                });
-                teeBoxArray.forEach((v, i) => {
-                    dropDownMenu += v;
-                });
-                dropDownMenu += "</select>";
+                // console.log(selcourse);
+                // let teesArray = selcourse.data.holes[0].teeBoxes;
+                // teesArray.forEach((v, i) => {
+                //     if (v.teeType != "auto change location") { //Excludes the auto distance tee (unsure what it is)
+                //         let teeType = v.teeType;
+                //         let newString = teeType.charAt(0).toUpperCase() + teeType.slice(1);
+                //         teeBoxArray.push(`<option value="${teeType}">${newString}</option>`)
+                //     };
+                // });
+                // teeBoxArray.forEach((v, i) => {
+                //     dropDownMenu += v;
+                // });
+                // dropDownMenu += "</select>";
+                // $(`#${courseid}`).append(dropDownMenu);
+                
                 $(mybtn).hide();
-                $(`#${courseid}`).append(dropDownMenu);
                 return newCourse;
             }
         }
@@ -82,16 +86,16 @@ class PlayerCollection {
         this.Collection = [];
     }
     addPlayer(name) {
-        this.Collection.forEach((v,i) => {
-            if (v.Name != name){
+        this.Collection.forEach((v, i) => {
+            if (v.Name != name) {
                 let newPlayer = new Player(name);
                 this.Collection.push(newPlayer);
                 return newPlayer;
-            }else{
+            } else {
                 return false;
             }
         });
-        
+
     }
 }
 
