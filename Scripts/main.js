@@ -27,10 +27,12 @@ function returnCourse(courseid, mybtn) {
     allCourses.loadCourse(courseid, mybtn);
 }
 
-function setTee(value) {
-    console.log(value);
+function setTee(value, id) {
+    console.log(value, id);
+    $(".courseDiv").hide();
+    //Load scorecard here
 }
 
-function loadCourse(obj) {
-    console.log(obj);
-};
+// function loadCourse(obj) {
+//     console.log(obj);
+// };

@@ -24,7 +24,7 @@ class AllCourses {
                         "Name": v.name,
                         "id": v.id
                     })
-                    let newItem = `<div id="${v.id}" class="courseContainer card">` +
+                    let newItem = `<div id="${v.id}" class="courseContainer card col-8 col-md-4">` +
                         `<img src="${v.image}" class="courseImg card-img-top" alt="Course Image" />` +
                         `<div class="card-body">` +
                         `<p class="card-text">` + v.name + `</p>` +
@@ -48,23 +48,23 @@ class AllCourses {
                 let selcourse = JSON.parse(this.responseText);
                 let newCourse = new Course(selcourse.data.id, selcourse.data.name, mainObj.Collection.length);
                 mainObj.Collection.push(newCourse);
-                // let teeBoxArray = [];
-                // let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value)">`
+                let teeBoxArray = [];
+                let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value, ${selcourse.data.id})">`
 
-                // console.log(selcourse);
-                // let teesArray = selcourse.data.holes[0].teeBoxes;
-                // teesArray.forEach((v, i) => {
-                //     if (v.teeType != "auto change location") { //Excludes the auto distance tee (unsure what it is)
-                //         let teeType = v.teeType;
-                //         let newString = teeType.charAt(0).toUpperCase() + teeType.slice(1);
-                //         teeBoxArray.push(`<option value="${teeType}">${newString}</option>`)
-                //     };
-                // });
-                // teeBoxArray.forEach((v, i) => {
-                //     dropDownMenu += v;
-                // });
-                // dropDownMenu += "</select>";
-                // $(`#${courseid}`).append(dropDownMenu);
+                console.log(selcourse);
+                let teesArray = selcourse.data.holes[0].teeBoxes;
+                teesArray.forEach((v, i) => {
+                    if (v.teeType != "auto change location") { //Excludes the auto distance tee (unsure what it is)
+                        let teeType = v.teeType;
+                        let newString = teeType.charAt(0).toUpperCase() + teeType.slice(1);
+                        teeBoxArray.push(`<option value="${teeType}">${newString}</option>`)
+                    };
+                });
+                teeBoxArray.forEach((v, i) => {
+                    dropDownMenu += v;
+                });
+                dropDownMenu += "</select>";
+                $(`#${courseid}`).append(dropDownMenu);
                 
                 $(mybtn).hide();
                 return newCourse;
