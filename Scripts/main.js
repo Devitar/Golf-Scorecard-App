@@ -103,42 +103,47 @@ $(".playerButton").on("click", function (event) {
     }
 });
 
-function calcTotals(plrName, type) {
-    let playerRow = $(`${"#"+plrName}`);
-    let cells = playerRow[0].cells;
-    let totalScore = 0;
-    switch (type) {
-        case "OUT":
-            for (let i = 1; i < 10; i++) { //Calc OUT score
-                if (cells[i].innerHTML != "") {
-                    totalScore += Number(cells[i].innerHTML);
+function calcTotals(plrName, type, element) {
+    if (!isNaN(Number(element.innerHTML))) {
+        let playerRow = $(`${"#"+plrName}`);
+        let cells = playerRow[0].cells;
+        let totalScore = 0;
+        switch (type) {
+            case "OUT":
+                for (let i = 1; i < 10; i++) { //Calc OUT score
+                    if (cells[i].innerHTML != "") {
+                        totalScore += Number(cells[i].innerHTML);
+                    }
                 }
-            }
-            $(`${"#"+plrName+"OUT"}`).html(totalScore);
-            break;
-        case "IN":
-            for (let i = 11; i < 20; i++) { //Calc IN score
-                if (cells[i].innerHTML != "") {
-                    totalScore += Number(cells[i].innerHTML);
+                $(`${"#"+plrName+"OUT"}`).html(totalScore);
+                break;
+            case "IN":
+                for (let i = 11; i < 20; i++) { //Calc IN score
+                    if (cells[i].innerHTML != "") {
+                        totalScore += Number(cells[i].innerHTML);
+                    }
                 }
-            }
-            $(`${"#"+plrName+"IN"}`).html(totalScore);
-            break;
+                $(`${"#"+plrName+"IN"}`).html(totalScore);
+                break;
+        }
+        if (cells[10].innerHTML != "" && cells[20].innerHTML != "") {
+            let finalScore = 0;
+            finalScore = Number(cells[10].innerHTML) + Number(cells[20].innerHTML);
+            $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
+        }
+    }else{
+        console.log("Element had a non number");
+        $(element).html("");
     }
-    if (cells[10].innerHTML != "" && cells[20].innerHTML != ""){
-        let finalScore = 0;
-        finalScore = Number(cells[10].innerHTML) + Number(cells[20].innerHTML);
-        $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
-    }
-
 }
 
-function resetAll(){
+function resetAll() {
     console.log("reset all");
     currentCourse = null;
     currentId = null;
     teeType = null;
     $(".golfScorecardDiv").remove(); //clear any current scorecards
+    allPlayers.removeAll();
     playerModal.hide();
     courseDiv.show();
 }

@@ -48,18 +48,47 @@ class Course {
     loadScorecard() {
         $(".golfScorecardDiv").remove(); //clear any current scorecards
         $("body").append(scoreCardBase); //Add new scorecard
-        //load yardage here
-        
+        let holes = this.Info.data.holes;
+        let holeData = [];
+        holes.forEach((v,i) => {
+            let teeBox;
+            for (let i = 0; i < v.teeBoxes.length; i++){
+                let box = v.teeBoxes[i];
+                if (box.teeType == teeType){
+                    teeBox = box;
+                    break;
+                }
+            }
+            holeData.push({"TeeBox": teeBox, "Par": teeBox.par, "Yardage": teeBox.yards, "Handicap": teeBox.hcp});
+        })
+        //load yardage
+        let yardsOut = 0;
+        let yardsIn = 0;
+        for (let i = 1; i < 10; i++) { //Add OUT yardage
+            let hole = holeData[i-1];
+            $("#yardsRow").append(`<td id="${"YardsHole"+i}" class="tableData">${hole.Yardage}</td>`);
+            yardsOut += hole.Yardage;
+        }
+        $("#yardsRow").append(`<td id="YardsOUT" class="tableDataBold">${yardsOut}</td>`);
+
+        for (let i = 10; i < 19; i++) { //Add IN yardage
+            let hole = holeData[i-1];
+            $("#yardsRow").append(`<td id="${"YardsHole"+i}" class="tableData">${hole.Yardage}</td>`);
+            yardsIn += hole.Yardage;
+        }
+        $("#yardsRow").append(`<td id="YardsIN" class="tableDataBold">${yardsIn}</td>`);
         //
-        //load handicap here
+        //load handicap
+
+        //
         allPlayers.Collection.forEach((v, i) => {
-            $("#tBody").append(`<tr id="${v.Name}"><th>Player: ${v.Name}</th></tr>`); //Add player row
+            $("#tBody").append(`<tr id="${v.Name}"><th>${v.Name}</th></tr>`); //Add player row
             for (let i = 1; i < 10; i++) { //Add OUT score boxes
-                $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'OUT')"></td>`);
+                $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'OUT', this)"></td>`);
             }
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"OUT"}" class="plrScoreDataTOTAL">0</td>`);
             for (let i = 10; i < 19; i++) { //Add OUT score boxes
-                $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'IN')"></td>`);
+                $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'IN', this)"></td>`);
             }
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"IN"}" class="plrScoreDataTOTAL">0</td>`);
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"TOTAL"}" class="plrScoreDataTOTAL">0</td>`);
