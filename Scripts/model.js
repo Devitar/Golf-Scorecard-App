@@ -1,9 +1,51 @@
+let scoreCardBase = '<div class="container golfScorecardDiv">' +
+    '        <table class="golfScorecard table table-striped" style="display: none;">' +
+    '            <thead>' +
+    '                <th>Holes</th>' +
+    '                <th>1</th>' +
+    '                <th>2</th>' +
+    '                <th>3</th>' +
+    '                <th>4</th>' +
+    '                <th>5</th>' +
+    '                <th>6</th>' +
+    '                <th>7</th>' +
+    '                <th>8</th>' +
+    '                <th>9</th>' +
+    '                <th>OUT</th>' +
+    '                <th>10</th>' +
+    '                <th>11</th>' +
+    '                <th>12</th>' +
+    '                <th>13</th>' +
+    '                <th>14</th>' +
+    '                <th>15</th>' +
+    '                <th>16</th>' +
+    '                <th>17</th>' +
+    '                <th>18</th>' +
+    '                <th>IN</th>' +
+    '            </thead>' +
+    '            <tbody>' +
+    '                <tr id="yardsRow">' +
+    '                    <th>Yards</th>' +
+    '                </tr>' +
+    '                <tr id="handicapRow">' +
+    '                    <th>Handicap</th>' +
+    '                </tr>' +
+    '                <tr id="playerRow">' +
+    '                    <th>Player1</th>' +
+    '                </tr>' +
+    '            </tbody>' +
+    '        </table>' +
+    '    </div>';
+
+
+
 class Course {
     constructor(id, name, index) {
         this.Name = name;
         this.ID = id;
         this.Index = index;
     }
+
 }
 
 class AllCourses {
@@ -50,7 +92,7 @@ class AllCourses {
                 mainObj.Collection.push(newCourse);
                 let teeBoxArray = [];
                 let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value, ${selcourse.data.id})">`
-
+                teeBoxArray.push(`<option value="None">Select Tee</option>`)
                 console.log(selcourse);
                 let teesArray = selcourse.data.holes[0].teeBoxes;
                 teesArray.forEach((v, i) => {
@@ -65,7 +107,7 @@ class AllCourses {
                 });
                 dropDownMenu += "</select>";
                 $(`#${courseid}`).append(dropDownMenu);
-                
+
                 $(mybtn).hide();
                 return newCourse;
             }

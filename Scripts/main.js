@@ -3,6 +3,10 @@
 let currentCourse;
 let teeType;
 
+let tableG = $(".golfScorecard");
+let playerModal = $(".modalPlayers");
+let courseDiv = $(".courseDiv");
+
 //Modal, initial load
 let mainModal = $(".modal");
 let closeModal = $("#closeModal");
@@ -29,10 +33,13 @@ function returnCourse(courseid, mybtn) {
 
 function setTee(value, id) {
     console.log(value, id);
-    $(".courseDiv").hide();
-    //Load scorecard here
-}
+    if (value != "None") {
+        courseDiv.hide();
+        //Load scorecard here
+        playerModal.show();
 
-// function loadCourse(obj) {
-//     console.log(obj);
-// };
+        //tableG.show();
+
+    }
+
+}

@@ -9,7 +9,7 @@ $paletteDarkMain: #00487C;
 
 $paletteBlack: #0F0A0A;
 $paletteWhite: #FCFFFC;
-$paletteWhiteTransparency: rgba(252,255,252,.75);
+$paletteWhiteTransparency: rgba(252, 255, 252, .75);
 
 body,
 html {
@@ -20,7 +20,8 @@ html {
     font-family: 'Poppins', sans-serif;
     background-color: $paletteWhite;
 }
-body{
+
+body {
     background-image: url("../Assets/Images/grassTexture75");
     //background-repeat: no-repeat;
     background-position: center;
@@ -34,6 +35,7 @@ body{
     width: 100%;
     height: 100%;
 }
+
 .inner {
     width: 100%;
     height: 100%;
@@ -41,7 +43,8 @@ body{
     justify-content: center;
     align-items: center;
 }
-.popup{
+
+.popup {
     background-color: $paletteWhite;
     border-radius: 10px;
     width: 40vw;
@@ -52,16 +55,19 @@ body{
     justify-content: center;
     align-items: center;
 }
-.modalHeader{
+
+.modalHeader {
     height: 25%;
 }
-#loadingGif{
+
+#loadingGif {
     max-height: 75%;
     height: 75%;
 }
+
 //
 //Players modal
-.modalPlayers{
+.modalPlayers {
     display: none;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.6);
@@ -69,7 +75,8 @@ body{
     width: 100%;
     height: 100%;
 }
-.popupPlayer{
+
+.popupPlayer {
     width: 60vw;
     height: 50vh;
     background-color: $paletteWhite;
@@ -77,36 +84,52 @@ body{
     //padding: 20px;
     display: flex;
     flex-direction: column;
-    //justify-content: center;
-    //align-items: center;
+    // justify-content: center;
+    // align-items: center;
 }
-.modalHeaderPlayer{
+
+.modalHeaderPlayer {
     text-align: center;
     border-bottom: 2px solid $paletteBlack;
 }
-.modalHeaderPlayer h3{
+
+.modalHeaderPlayer h3 {
     color: $paletteBlack;
 }
+
+#playerModalBody{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 //
 
 //Navbar
-.navbar{
+.navbar {
     background-color: $paletteDark !important;
 }
-.navbar-brand{
+
+.navbar-brand {
     color: $paletteWhite !important;
 }
-.nav-link{
+
+.nav-link {
     color: $paletteWhiteTransparency !important;
 }
-.nav-item.active{
+
+.nav-item.active {
     color: $paletteWhite !important;
 }
+
 //
 .centerbox {
     width: 100%;
     height: 100%;
 }
+
 .courseDiv {
     width: 100%;
     display: flex;
@@ -122,14 +145,14 @@ body{
     height: 75%;
 }
 
-.card-body{
+.card-body {
     height: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.card-text{
+.card-text {
     height: 100%;
     margin-top: 2%;
     display: flex;
@@ -144,4 +167,9 @@ body{
 
 .classRow {
     display: flex;
+}
+
+.golfScorecard {
+    background-color: $paletteWhite;
+    border-color: black;
 }
