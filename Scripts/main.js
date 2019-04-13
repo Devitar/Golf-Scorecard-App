@@ -1,7 +1,7 @@
 //$('.navbar').effect('shake', {}, 500)
 
 let currentCourse;
-    let currentId;
+let currentId;
 let teeType;
 
 let tableG = $(".golfScorecard");
@@ -56,61 +56,82 @@ function setTee(value, id) {
 
 }
 
-$(".playerButton").on("click", function(event){
+$(".playerButton").on("click", function (event) {
     currentCourse = allCourses.getCourse(currentId);
     console.log(currentCourse);
     playerError.hide();
     let uniqueNames = true;
     let playerNames = [player1.val(), player2.val(), player3.val(), player4.val()];
-    let newPlayers = []; 
-    for (let i = playerNames.length + 1; i > 0; i--){
-        if (!playerNames[i]){
-            playerNames.splice(i,1);
+    let newPlayers = [];
+    for (let i = playerNames.length + 1; i > 0; i--) {
+        if (!playerNames[i]) {
+            playerNames.splice(i, 1);
         }
     }
-    for (let i = 0; i < playerNames.length; i++){
+    for (let i = 0; i < playerNames.length; i++) {
         let name1 = playerNames[i];
         if (playerNames.length == 1) {
             newPlayers.push(name1);
             break;
         }
-        if (name1){
-            for (let i2 = 0; i2 < playerNames.length; i2++){
+        if (name1) {
+            for (let i2 = 0; i2 < playerNames.length; i2++) {
                 let name2 = playerNames[i2];
-                if (i2 != i && name2){
-                    if (name2 == name1){
+                if (i2 != i && name2) {
+                    if (name2 == name1) {
                         console.log("breaking");
                         uniqueNames = false;
                         playerError.show();
                         break;
-                    } else {
-                    }
+                    } else {}
                 }
             }
             newPlayers.push(name1);
         } else {
-            console.log("No name input for player " + (i+1).toString());
+            console.log("No name input for player " + (i + 1).toString());
         }
     }
-    if (uniqueNames == true){
+    if (uniqueNames == true) {
         console.log("Creating new players");
         allPlayers.removeAll();
-        newPlayers.forEach((v,i) => {
+        newPlayers.forEach((v, i) => {
             allPlayers.addPlayer(v);
             console.log(v);
         })
         currentCourse.loadScorecard();
         playerModal.hide();
-        allPlayers.Collection.forEach((v,i) => {
+        allPlayers.Collection.forEach((v, i) => {
             //console.log(i,v);
 
         })
-    }else{
+    } else {
         console.log("Non unique");
     }
 });
 
-function calcTotals(plrName, type){
+function calcTotals(plrName, type) {
     console.log(plrName, type);
-    
+    let playerRow = $(`${"#"+plrName}`);
+    console.log(playerRow);
+    let cells = playerRow[0].cells;
+    let totalScore = 0;
+    switch (type) {
+        case "OUT":
+            for (let i = 1; i < 10; i++) { //Calc OUT score
+                if (cells[i].innerHTML != "") {
+                    totalScore += Number(cells[i].innerHTML);
+                }
+            }
+            $(`${"#"+plrName+"OUT"}`).html(totalScore);
+            break;
+        case "IN":
+            for (let i = 11; i < 19; i++) { //Calc IN score
+                if (cells[i].innerHTML != "") {
+                    totalScore += Number(cells[i].innerHTML);
+                }
+            }
+            $(`${"#"+plrName+"IN"}`).html(totalScore);
+            break;
+    }
+
 }

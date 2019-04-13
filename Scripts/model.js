@@ -44,18 +44,18 @@ class Course {
         this.ID = id;
         this.Info = info;
     }
-    loadScorecard(){
+    loadScorecard() {
         $(".golfScorecardDiv").remove(); //clear any current scorecards
         $("body").append(scoreCardBase); //Add new scorecard
         //load yardage here
         //load handicap here
-        allPlayers.Collection.forEach((v,i) => {
+        allPlayers.Collection.forEach((v, i) => {
             $("#tBody").append(`<tr id="${v.Name}"><th>Player: ${v.Name}</th></tr>`); //Add player row
-            for (let i = 1; i < 10; i++){ //Add OUT score boxes
+            for (let i = 1; i < 10; i++) { //Add OUT score boxes
                 $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'OUT')"></td>`);
             }
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"OUT"}" class="plrScoreDataOUT">0</td>`);
-            for (let i = 10; i < 19; i++){ //Add OUT score boxes
+            for (let i = 10; i < 19; i++) { //Add OUT score boxes
                 $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'IN')"></td>`);
             }
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"IN"}" class="plrScoreDataOUT">0</td>`);
@@ -131,14 +131,14 @@ class AllCourses {
         xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);
         xhttp.send();
     }
-    getCourse(id){
+    getCourse(id) {
         let found;
-        this.Collection.forEach((v,i) => {
-            if (v.ID == id.toString()){
+        this.Collection.forEach((v, i) => {
+            if (v.ID == id.toString()) {
                 found = v;
             }
         })
-        if (!found){
+        if (!found) {
             return false;
         } else {
             return found;
@@ -161,7 +161,7 @@ class PlayerCollection {
         this.Collection.push(newPlayer);
         return newPlayer;
     }
-    removeAll(){
+    removeAll() {
         this.Collection = [];
     }
 }
