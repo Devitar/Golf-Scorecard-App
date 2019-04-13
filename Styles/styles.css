@@ -114,6 +114,10 @@ body {
           align-items: center;
 }
 
+#playerErrorText {
+  color: red;
+}
+
 .navbar {
   background-color: #36393B !important;
 }
