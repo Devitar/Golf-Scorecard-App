@@ -109,3 +109,8 @@ $(".playerButton").on("click", function(event){
         console.log("Non unique");
     }
 });
+
+function calcTotals(plrName, type){
+    console.log(plrName, type);
+    
+}
