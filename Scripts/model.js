@@ -49,6 +49,8 @@ class Course {
         $(".golfScorecardDiv").remove(); //clear any current scorecards
         $("body").append(scoreCardBase); //Add new scorecard
         //load yardage here
+        
+        //
         //load handicap here
         allPlayers.Collection.forEach((v, i) => {
             $("#tBody").append(`<tr id="${v.Name}"><th>Player: ${v.Name}</th></tr>`); //Add player row

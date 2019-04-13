@@ -4,7 +4,6 @@ let currentCourse;
 let currentId;
 let teeType;
 
-let tableG = $(".golfScorecard");
 let playerModal = $(".modalPlayers");
 let courseDiv = $(".courseDiv");
 
@@ -47,11 +46,7 @@ function setTee(value, id) {
         teeType = value;
         currentId = id;
         courseDiv.hide();
-        //Load scorecard here
         playerModal.show();
-
-        //tableG.show();
-
     }
 
 }
@@ -136,4 +131,14 @@ function calcTotals(plrName, type) {
         $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
     }
 
+}
+
+function resetAll(){
+    console.log("reset all");
+    currentCourse = null;
+    currentId = null;
+    teeType = null;
+    $(".golfScorecardDiv").remove(); //clear any current scorecards
+    playerModal.hide();
+    courseDiv.show();
 }
