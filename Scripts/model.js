@@ -1,5 +1,5 @@
 let scoreCardBase = '<div class="container golfScorecardDiv">' +
-    '        <table class="golfScorecard table table-striped" style="display: none;">' +
+    '        <table class="golfScorecard table table-striped">' +
     '            <thead>' +
     '                <th>Holes</th>' +
     '                <th>1</th>' +
@@ -31,7 +31,6 @@ let scoreCardBase = '<div class="container golfScorecardDiv">' +
     '                    <th>Handicap</th>' +
     '                </tr>' +
     '                <tr id="playerRow">' +
-    '                    <th>Player1</th>' +
     '                </tr>' +
     '            </tbody>' +
     '        </table>' +
@@ -40,12 +39,16 @@ let scoreCardBase = '<div class="container golfScorecardDiv">' +
 
 
 class Course {
-    constructor(id, name, index) {
+    constructor(id, name, info) {
         this.Name = name;
         this.ID = id;
-        this.Index = index;
+        this.Info = info;
     }
+    loadScorecard(){
+        $(".golfScorecardDiv").remove(); //clear any current scorecards
+        $("body").append(scoreCardBase); //Add new scorecard
 
+    }
 }
 
 class AllCourses {
@@ -88,7 +91,7 @@ class AllCourses {
             if (this.readyState == 4 && this.status == 200) {
                 hideModal();
                 let selcourse = JSON.parse(this.responseText);
-                let newCourse = new Course(selcourse.data.id, selcourse.data.name, mainObj.Collection.length);
+                let newCourse = new Course(selcourse.data.id, selcourse.data.name, selcourse);
                 mainObj.Collection.push(newCourse);
                 let teeBoxArray = [];
                 let dropDownMenu = `<select id="${selcourse.data.id}" class="dropdownMenu" onchange="setTee(value, ${selcourse.data.id})">`
@@ -115,6 +118,19 @@ class AllCourses {
         xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);
         xhttp.send();
     }
+    getCourse(id){
+        let found;
+        this.Collection.forEach((v,i) => {
+            if (v.ID == id.toString()){
+                found = v;
+            }
+        })
+        if (!found){
+            return false;
+        } else {
+            return found;
+        }
+    }
 }
 
 class Player {
@@ -138,6 +154,9 @@ class PlayerCollection {
             }
         });
 
+    }
+    removeAll(){
+        this.Collection = [];
     }
 }
 

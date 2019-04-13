@@ -1,6 +1,7 @@
 //$('.navbar').effect('shake', {}, 500)
 
 let currentCourse;
+    let currentId;
 let teeType;
 
 let tableG = $(".golfScorecard");
@@ -43,6 +44,8 @@ function returnCourse(courseid, mybtn) {
 function setTee(value, id) {
     console.log(value, id);
     if (value != "None") {
+        teeType = value;
+        currentId = id;
         courseDiv.hide();
         //Load scorecard here
         playerModal.show();
@@ -54,21 +57,55 @@ function setTee(value, id) {
 }
 
 $(".playerButton").on("click", function(event){
-    //console.log(event);
-    let uniqueNames = [false, false, false, false];
+    currentCourse = allCourses.getCourse(currentId);
+    console.log(currentCourse);
+    playerError.hide();
+    let uniqueNames = true;
     let playerNames = [player1.val(), player2.val(), player3.val(), player4.val()];
-    playerNames.forEach((v,i) => {
-        if (v){
-            console.log(v);
+    let newPlayers = []; 
+    for (let i = playerNames.length + 1; i > 0; i--){
+        if (!playerNames[i]){
+            playerNames.splice(i,1);
+        }
+    }
+    for (let i = 0; i < playerNames.length; i++){
+        let name1 = playerNames[i];
+        if (playerNames.length == 1) {
+            newPlayers.push(name1);
+            break;
+        }
+        if (name1){
+            for (let i2 = 0; i2 < playerNames.length; i2++){
+                let name2 = playerNames[i2];
+                if (i2 != i && name2){
+                    if (name2 == name1){
+                        console.log("breaking");
+                        uniqueNames = false;
+                        playerError.show();
+                        break;
+                    } else {
+                    }
+                }
+            }
+            newPlayers.push(name1);
         } else {
             console.log("No name input for player " + (i+1).toString());
         }
-        
-    })
-    uniqueNames.forEach((v,i) => {
-        for (let i = 0; i < uniqueNames.length; i++){
+    }
+    if (uniqueNames == true){
+        console.log("Creating new players");
+        allPlayers.removeAll();
+        newPlayers.forEach((v,i) => {
+            allPlayers.addPlayer(v);
+            console.log(v);
+        })
+        currentCourse.loadScorecard();
+        playerModal.hide();
+        allPlayers.Collection.forEach((v,i) => {
+            //console.log(i,v);
 
-        }
-    });
-    playerError.show();
+        })
+    }else{
+        console.log("Non unique");
+    }
 });
