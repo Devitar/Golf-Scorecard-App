@@ -22,6 +22,7 @@ let scoreCardBase = '<div class="container golfScorecardDiv">' +
     '                <th>17</th>' +
     '                <th>18</th>' +
     '                <th>IN</th>' +
+    '                <th>TOTAL</th>' +
     '            </thead>' +
     '            <tbody id="tBody">' +
     '                <tr id="yardsRow">' +
@@ -54,11 +55,12 @@ class Course {
             for (let i = 1; i < 10; i++) { //Add OUT score boxes
                 $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'OUT')"></td>`);
             }
-            $(`${"#"+v.Name}`).append(`<td id="${v.Name+"OUT"}" class="plrScoreDataOUT">0</td>`);
+            $(`${"#"+v.Name}`).append(`<td id="${v.Name+"OUT"}" class="plrScoreDataTOTAL">0</td>`);
             for (let i = 10; i < 19; i++) { //Add OUT score boxes
                 $(`${"#"+v.Name}`).append(`<td id="${v.Name+i}" class="plrScoreData" contenteditable="true" onblur="calcTotals('${v.Name}', 'IN')"></td>`);
             }
-            $(`${"#"+v.Name}`).append(`<td id="${v.Name+"IN"}" class="plrScoreDataOUT">0</td>`);
+            $(`${"#"+v.Name}`).append(`<td id="${v.Name+"IN"}" class="plrScoreDataTOTAL">0</td>`);
+            $(`${"#"+v.Name}`).append(`<td id="${v.Name+"TOTAL"}" class="plrScoreDataTOTAL">0</td>`);
         })
         //load PAR here
     }

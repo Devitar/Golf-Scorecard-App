@@ -63,7 +63,7 @@ $(".playerButton").on("click", function (event) {
     let uniqueNames = true;
     let playerNames = [player1.val(), player2.val(), player3.val(), player4.val()];
     let newPlayers = [];
-    for (let i = playerNames.length + 1; i > 0; i--) {
+    for (let i = playerNames.length + 1; i == 0; i--) {
         if (!playerNames[i]) {
             playerNames.splice(i, 1);
         }
@@ -91,12 +91,11 @@ $(".playerButton").on("click", function (event) {
             console.log("No name input for player " + (i + 1).toString());
         }
     }
-    if (uniqueNames == true) {
+    if (uniqueNames == true && newPlayers.length > 0) {
         console.log("Creating new players");
         allPlayers.removeAll();
         newPlayers.forEach((v, i) => {
             allPlayers.addPlayer(v);
-            console.log(v);
         })
         currentCourse.loadScorecard();
         playerModal.hide();
@@ -105,14 +104,12 @@ $(".playerButton").on("click", function (event) {
 
         })
     } else {
-        console.log("Non unique");
+        console.log("Non unique or empty players");
     }
 });
 
 function calcTotals(plrName, type) {
-    console.log(plrName, type);
     let playerRow = $(`${"#"+plrName}`);
-    console.log(playerRow);
     let cells = playerRow[0].cells;
     let totalScore = 0;
     switch (type) {
@@ -125,13 +122,18 @@ function calcTotals(plrName, type) {
             $(`${"#"+plrName+"OUT"}`).html(totalScore);
             break;
         case "IN":
-            for (let i = 11; i < 19; i++) { //Calc IN score
+            for (let i = 11; i < 20; i++) { //Calc IN score
                 if (cells[i].innerHTML != "") {
                     totalScore += Number(cells[i].innerHTML);
                 }
             }
             $(`${"#"+plrName+"IN"}`).html(totalScore);
             break;
+    }
+    if (cells[10].innerHTML != "" && cells[20].innerHTML != ""){
+        let finalScore = 0;
+        finalScore = Number(cells[10].innerHTML) + Number(cells[20].innerHTML);
+        $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
     }
 
 }

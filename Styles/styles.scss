@@ -174,7 +174,18 @@ body {
     display: flex;
 }
 
+//Scorecard
+
 .golfScorecard {
     background-color: $paletteWhite;
     border-color: black;
 }
+
+.plrScoreData, .plrScoreDataTOTAL{
+    border: 1px solid rgba(0,0,0, 0.5);
+}
+.plrScoreDataTOTAL{
+    background-color: rgba(0,0,0, 0.5);
+    color: $paletteWhite;
+}
+//
