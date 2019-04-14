@@ -4,6 +4,9 @@ let currentCourse;
 let currentId;
 let teeType;
 
+let thumbsUp = "Assets/Images/Icons/thumbsUp.png";
+let thumbsDown = "Assets/Images/Icons/thumbsDown.png";
+
 let totalPar;
 
 let playerModal = $(".modalPlayers");
@@ -110,30 +113,57 @@ function calcTotals(plrName, type, element) {
         let playerRow = $(`${"#"+plrName}`);
         let cells = playerRow[0].cells;
         let totalScore = 0;
-        switch (type) {
-            case "OUT":
-                for (let i = 1; i < 10; i++) { //Calc OUT score
-                    if (cells[i].innerHTML != "") {
-                        totalScore += Number(cells[i].innerHTML);
-                    }
-                }
-                $(`${"#"+plrName+"OUT"}`).html(totalScore);
-                break;
-            case "IN":
-                for (let i = 11; i < 20; i++) { //Calc IN score
-                    if (cells[i].innerHTML != "") {
-                        totalScore += Number(cells[i].innerHTML);
-                    }
-                }
-                $(`${"#"+plrName+"IN"}`).html(totalScore);
-                break;
+        //Checking if all scores are in
+        let isDone = true;
+        for (let i = 1; i < 10; i++) {
+            if (cells[i].innerHTML == "") {
+                isDone = false;
+            }
         }
-        if (cells[10].innerHTML != "" && cells[20].innerHTML != "") {
-            let finalScore = 0;
-            finalScore = Number(cells[10].innerHTML) + Number(cells[20].innerHTML);
-            $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
+        for (let i = 11; i < 20; i++) { //Calc IN score
+            if (cells[i].innerHTML == "") {
+                isDone = false;
+            }
         }
-    }else{
+        //
+        if (!isDone) {
+            switch (type) {
+                case "OUT":
+                    for (let i = 1; i < 10; i++) { //Calc OUT score
+                        if (cells[i].innerHTML != "") {
+                            totalScore += Number(cells[i].innerHTML);
+                        }
+                    }
+                    $(`${"#"+plrName+"OUT"}`).html(totalScore);
+                    break;
+                case "IN":
+                    for (let i = 11; i < 20; i++) { //Calc IN score
+                        if (cells[i].innerHTML != "") {
+                            totalScore += Number(cells[i].innerHTML);
+                        }
+                    }
+                    $(`${"#"+plrName+"IN"}`).html(totalScore);
+                    break;
+            }
+            if (cells[10].innerHTML != "" && cells[20].innerHTML != "") {
+                let finalScore = 0;
+                finalScore = Number(cells[10].innerHTML) + Number(cells[20].innerHTML);
+                $(`${"#"+plrName+"TOTAL"}`).html(finalScore);
+            }
+        } else {
+            let result = $(`${"#"+plrName+"RESULT"}`);
+            console.log(result);
+            if (result.length == 0) {
+                let playerTotal = $(`${"#"+plrName+"TOTAL"}`)[0].innerHTML;
+                let parCalc = playerTotal - totalPar;
+                if (parCalc > 0) { //Bad or average score
+                    $(`${"#"+plrName}`).append(`<td id="${plrName+"RESULT"}" class="resultImgTD">${parCalc}<img src="${thumbsDown}" class="resultImg" alt="Thumbs Down" /></td>`);
+                } else { //Good score, under par
+                $(`${"#"+plrName}`).append(`<td id="${plrName+"RESULT"}" class="resultImgTD">${parCalc}<img src="${thumbsUp}" class="resultImg" alt="Thumbs Up" /></td>`);
+                }
+            }
+        }
+    } else {
         console.log("Element had a non number");
         $(element).html("");
     }
