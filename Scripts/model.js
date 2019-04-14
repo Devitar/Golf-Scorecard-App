@@ -31,8 +31,6 @@ let scoreCardBase = '<div class="container golfScorecardDiv">' +
     '                <tr id="handicapRow">' +
     '                    <th>Handicap</th>' +
     '                </tr>' +
-    '                <tr id="playerRow">' +
-    '                </tr>' +
     '            </tbody>' +
     '        </table>' +
     '    </div>';
@@ -77,9 +75,25 @@ class Course {
             yardsIn += hole.Yardage;
         }
         $("#yardsRow").append(`<td id="YardsIN" class="tableDataBold">${yardsIn}</td>`);
+        $("#yardsRow").append(`<td id="YardsTOTAL" class="tableDataBold">${yardsIn+yardsOut}</td>`);
         //
         //load handicap
+        let hcpOut = 0;
+        let hcpIn = 0;
+        for (let i = 1; i < 10; i++) { //Add OUT yardage
+            let hole = holeData[i-1];
+            $("#handicapRow").append(`<td id="${"hcpHole"+i}" class="tableData">${hole.Handicap}</td>`);
+            hcpOut += hole.Handicap;
+        }
+        $("#handicapRow").append(`<td id="hcpOUT" class="tableDataBold">${hcpOut}</td>`);
 
+        for (let i = 10; i < 19; i++) { //Add IN yardage
+            let hole = holeData[i-1];
+            $("#handicapRow").append(`<td id="${"hcpHole"+i}" class="tableData">${hole.Handicap}</td>`);
+            hcpIn += hole.Handicap;
+        }
+        $("#handicapRow").append(`<td id="hcpIN" class="tableDataBold">${hcpIn}</td>`);
+        $("#handicapRow").append(`<td id="hcpTOTAL" class="tableDataBold">${hcpIn+hcpOut}</td>`);
         //
         allPlayers.Collection.forEach((v, i) => {
             $("#tBody").append(`<tr id="${v.Name}"><th>${v.Name}</th></tr>`); //Add player row
@@ -93,7 +107,26 @@ class Course {
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"IN"}" class="plrScoreDataTOTAL">0</td>`);
             $(`${"#"+v.Name}`).append(`<td id="${v.Name+"TOTAL"}" class="plrScoreDataTOTAL">0</td>`);
         })
-        //load PAR here
+        //load par
+        $("#tBody").append(`<tr id="parRow"><th>Par</th></tr>`); //Add par row
+        let parOut = 0;
+        let parIn = 0;
+        for (let i = 1; i < 10; i++) { //Add OUT par
+            let hole = holeData[i-1];
+            $("#parRow").append(`<td id="${"parHole"+i}" class="tableData">${hole.Par}</td>`);
+            parOut += hole.Par;
+        }
+        $("#parRow").append(`<td id="parOUT" class="tableDataBold">${parOut}</td>`);
+
+        for (let i = 10; i < 19; i++) { //Add IN par
+            let hole = holeData[i-1];
+            $("#parRow").append(`<td id="${"parHole"+i}" class="tableData">${hole.Par}</td>`);
+            parIn += hole.Par;
+        }
+        $("#parRow").append(`<td id="parIN" class="tableDataBold">${parIn}</td>`);
+        totalPar = parIn+parOut;
+        $("#parRow").append(`<td id="parTOTAL" class="tableDataBold">${totalPar}</td>`);
+        //
     }
 }
 

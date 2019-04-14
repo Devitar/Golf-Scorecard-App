@@ -4,6 +4,8 @@ let currentCourse;
 let currentId;
 let teeType;
 
+let totalPar;
+
 let playerModal = $(".modalPlayers");
 let courseDiv = $(".courseDiv");
 
@@ -142,6 +144,7 @@ function resetAll() {
     currentCourse = null;
     currentId = null;
     teeType = null;
+    totalPar = null;
     $(".golfScorecardDiv").remove(); //clear any current scorecards
     allPlayers.removeAll();
     playerModal.hide();
