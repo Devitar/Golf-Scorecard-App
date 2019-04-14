@@ -1,4 +1,4 @@
-let scoreCardBase = '<div class="container golfScorecardDiv">' +
+let scoreCardBase = '<div class="container golfScorecardDiv" style="overflow: auto;">' +
     '        <table class="golfScorecard table table-striped">' +
     '            <thead>' +
     '                <th>Holes</th>' +
@@ -126,6 +126,9 @@ class Course {
         $("#parRow").append(`<td id="parIN" class="tableDataBold">${parIn}</td>`);
         totalPar = parIn+parOut;
         $("#parRow").append(`<td id="parTOTAL" class="tableDataBold">${totalPar}</td>`);
+
+        //Reload body image to fit
+        //$('body').css('backgroundImage', `url("Assets/Images/grassTexture75")`);
         //
     }
 }
